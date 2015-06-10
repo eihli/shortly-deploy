@@ -1,7 +1,11 @@
 var app = require('./server-config.js');
+var envConfig = require('./env-config.js');
 
-var port = 4568;
+console.log("Node ENV", process.env.NODE_ENV);
+console.log("Process ENV", process.env);
 
-app.listen(port);
+var cfg = envConfig[process.env.NODE_ENV];
 
-console.log('Server now listening on port ' + port);
+app.listen(cfg.port);
+
+console.log('Server now listening on port ', cfg.port);

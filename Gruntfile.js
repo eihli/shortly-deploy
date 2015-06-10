@@ -2,8 +2,8 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    concat: {
-    },
+    // concat: {
+    // },
 
     mochaTest: {
       test: {
@@ -21,10 +21,18 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      random_name: {
+        files: {
+          'public/dist/app.min.js' : ['public/client/*.js']
+        }
+      }
     },
 
     jshint: {
       files: [
+        'app/**/*.js',
+        'public/client/*.js',
+        '*.js'
         // Add filespec list here
       ],
       options: {
@@ -38,6 +46,11 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
+      target: {
+        files: {
+          'public/dist/style.css' : ['public/*.css']
+        }
+      }
     },
 
     watch: {
@@ -66,7 +79,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-concat');
+  // grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
@@ -79,7 +92,7 @@ module.exports = function(grunt) {
          grunt: true,
          args: 'nodemon'
     });
-    nodemon.stdout.pipe(process.stdout);
+    nodemon.stdout.pipe(process.stdoutg);
     nodemon.stderr.pipe(process.stderr);
 
     grunt.task.run([ 'watch' ]);
@@ -90,10 +103,15 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
+    'jshint',
     'mochaTest'
   ]);
 
   grunt.registerTask('build', [
+    'jshint',
+    'cssmin',
+    // 'concat',
+    'uglify'
   ]);
 
   grunt.registerTask('upload', function(n) {
@@ -105,7 +123,9 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', [
-    // add your deploy tasks here
+    'test',
+    'build',
+    'upload'
   ]);
 
 
