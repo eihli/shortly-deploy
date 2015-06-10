@@ -71,7 +71,8 @@ module.exports = function(grunt) {
     },
 
     shell: {
-      prodServer: {
+      pushToProd: {
+        command: 'git push azure master'
       }
     },
   });
@@ -114,14 +115,17 @@ module.exports = function(grunt) {
     'uglify'
   ]);
 
-  grunt.registerTask('upload', function(n) {
-    if(grunt.option('prod')) {
-      // add your production server task here
-    } else {
-      grunt.task.run([ 'server-dev' ]);
-    }
-  });
+  // grunt.registerTask('upload', function(n) {
+  //   if(grunt.option('prod')) {
+  //     // add your production server task here
+  //   } else {
+  //     grunt.task.run([ 'server-dev' ]);
+  //   }
+  // });
 
+  grunt.registerTask('upload', [
+    'shell:pushToProd'
+  ]);
   grunt.registerTask('deploy', [
     'test',
     'build',
