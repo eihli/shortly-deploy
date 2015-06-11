@@ -1,3 +1,15 @@
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/shortly');
+
+var Cat = mongoose.model('Cat', { name: String });
+
+var kitty = new Cat({ name: 'Zildjian' });
+kitty.save(function (err) {
+  if (err) // ...
+  console.log('meow');
+});
+
+
 var Bookshelf = require('bookshelf');
 var path = require('path');
 
@@ -43,3 +55,5 @@ db.knex.schema.hasTable('users').then(function(exists) {
 });
 
 module.exports = db;
+
+
