@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
   dateCreated: { type: Date, default: Date.now }
 });
 
-userSchema.methods.comparePassword = function(attemchptedPassword, callback) {
+userSchema.methods.comparePassword = function(attemptedPassword, callback) {
   bcrypt.compare(attemptedPassword, this.get('password'), function(err, isMatch) {
     callback(isMatch);
   });
