@@ -5,6 +5,7 @@ var mongoose = require('../config');
 var linkSchema = mongoose.Schema({
   url: String,
   base_url: String,
+  fav_icon: String,
   code: String,
   title: String,
   visits: { type: Number, default: 0 },
