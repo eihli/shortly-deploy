@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/shortly');
+var dbUri = process.env.CUSTOMCONNSTR_MONGOLAB_URI || 'mongodb://localhost/shortly';
+mongoose.connect(dbUri);
 
 module.exports = mongoose;
 // var Cat = mongoose.model('Cat', { name: String });
